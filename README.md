@@ -1,2 +1,2 @@
-Cara mencoba (tolong di revisi) :) /n
-php artisan migrate
+Cara mencoba (tolong di revisi :P)
+- php artisan migrate
