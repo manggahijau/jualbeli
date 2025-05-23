@@ -2,6 +2,7 @@
 
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
 Route::get('/', function () {
     return view('home');
@@ -18,4 +19,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth');
 
-
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+})->name('logout');
