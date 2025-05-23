@@ -4,6 +4,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
+
 Route::get('/', function () {
     return view('home');
 });
@@ -23,3 +25,15 @@ Route::post('/logout', function () {
     Auth::logout();
     return redirect('/');
 })->name('logout');
+
+
+Route::get('/produk/create', [ProductController::class, 'create'])->middleware('auth');
+Route::post('/produk', [ProductController::class, 'store'])->middleware('auth');
+Route::get('/', function () {
+    $products = \App\Models\Product::all();
+    return view('home', compact('products'));
+});
+Route::get('/dashboard', function () {
+    $products = \App\Models\Product::all();
+    return view('dashboard', compact('products'));
+})->middleware('auth');

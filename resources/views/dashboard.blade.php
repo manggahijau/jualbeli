@@ -12,5 +12,16 @@
     <form method="POST" action="{{ route('logout') }}">
         @csrf
         <button type="submit">Logout</button>
+        <a href="{{ url('/produk/create') }}">Tambah Produk</a>
     </form>
 @endauth
+
+@foreach ($products as $produk)
+    <div>
+        <h3>{{ $produk->nama_produk }}</h3>
+        <p>{{ $produk->deskripsi }}</p>
+        <p>Rp{{ number_format($produk->harga, 0, ',', '.') }}</p>
+        <p>Stok: {{ $produk->stok }}</p>
+    </div>
+@endforeach
+

@@ -14,3 +14,13 @@
         <button>Register</button>
     </a>
 @endsection
+
+@foreach ($products as $produk)
+    <div>
+        <h3>{{ $produk->nama_produk }}</h3>
+        <p>{{ $produk->deskripsi }}</p>
+        <p>Rp{{ number_format($produk->harga, 0, ',', '.') }}</p>
+        <p>Stok: {{ $produk->stok }}</p>
+    </div>
+@endforeach
+
