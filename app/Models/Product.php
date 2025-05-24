@@ -10,7 +10,16 @@ class Product extends Model
     'nama_produk',
     'deskripsi',
     'harga',
-    'stok'
+    'stok',
+    'user_id',
+
+
 ];
+
+public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
 
 }

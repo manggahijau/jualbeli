@@ -12,7 +12,7 @@
     <form method="POST" action="{{ route('logout') }}">
         @csrf
         <button type="submit">Logout</button>
-        <a href="{{ url('/produk/create') }}">Tambah Produk</a>
+        <a href="{{ url('/produk/saya') }}">Tambah Produk</a>
     </form>
 @endauth
 
@@ -22,6 +22,7 @@
         <p>{{ $produk->deskripsi }}</p>
         <p>Rp{{ number_format($produk->harga, 0, ',', '.') }}</p>
         <p>Stok: {{ $produk->stok }}</p>
+        <p>Penjual: {{ $produk->user->username }}</p>
     </div>
 @endforeach
 
