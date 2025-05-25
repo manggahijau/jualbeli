@@ -14,6 +14,8 @@
         <button type="submit">Logout</button>
         <a href="{{ url('/produk/saya') }}">Tambah Produk</a>
     </form>
+
+    
 @endauth
 
 @foreach ($products as $produk)
@@ -24,5 +26,12 @@
         <p>Stok: {{ $produk->stok }}</p>
         <p>Penjual: {{ $produk->user->username }}</p>
     </div>
+
+    <form action="{{ route('produk.beli', $produk->id) }}" method="POST">
+    @csrf
+    <input type="number" name="jumlah" min="1" max="{{ $produk->stok }}" required>
+    <button type="submit">Beli Sekarang</button>
+</form>
+
 @endforeach
 

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () {
     return view('home');
@@ -46,3 +47,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/produk/{id}', [ProductController::class, 'destroy'])->name('produk.destroy');
 });
 
+
+Route::post('/produk/{id}/beli', [TransactionController::class, 'store'])->name('produk.beli');
