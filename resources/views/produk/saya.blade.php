@@ -12,6 +12,9 @@
                 <p>{{ $item->deskripsi }}</p>
                 <p>Harga: Rp {{ number_format($item->harga) }}</p>
                 <p>Stok: {{ $item->stok }}</p>
+                @if($item->gambar)
+                <img src="{{ asset('storage/' . $item->gambar) }}" alt="Gambar Produk" width="100">
+                @endif
                 <a href="{{ route('produk.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
 
                 <form action="{{ route('produk.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus produk ini?')">

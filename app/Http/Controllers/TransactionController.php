@@ -11,26 +11,30 @@ class TransactionController extends Controller
 {
   public function store(Request $request, $id)
 {
-    $request->validate([
-        'jumlah' => 'required|integer|min:1'
-    ]);
+   $product = Product::with('diskonGrosir')->findOrFail($id);
+    $jumlah = $request->input('jumlah');
+    $harga = $product->harga;
+    $diskon = 0;
 
-    $product = Product::findOrFail($id);
+    // 💡 Cek apakah produk aktifkan harga grosir
+    if ($product->is_grosir) {
+        $diskonTepat = $product->diskonGrosir()
+            ->where('minimal_jumlah', '<=', $jumlah)
+            ->orderByDesc('minimal_jumlah')
+            ->first();
 
-    // Cek stok
-    if ($request->jumlah > $product->stok) {
-        return back()->with('error', 'Stok tidak cukup. Silakan cari produk lain atau menangis dalam keheningan.');
+        if ($diskonTepat) {
+            $diskon = $diskonTepat->persentase_diskon;
+        }
     }
 
-    // Hitung total harga
-    $total = $request->jumlah * $product->harga;
-
+    $totalHarga = $harga * $jumlah * ((100 - $diskon) / 100);
     // Buat transaksi
     Transaction::create([
         'user_id' => Auth::id(),
         'product_id' => $product->id,
         'jumlah' => $request->jumlah,
-        'total_harga' => $total
+        'total_harga' => $totalHarga
     ]);
 
     // Kurangi stok produk

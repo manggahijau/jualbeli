@@ -19,6 +19,8 @@ return new class extends Migration
         $table->integer('stok');
         $table->timestamps();
         $table->foreignId('user_id')->constrained()->onDelete('cascade');
+        $table->boolean('is_grosir')->default(false);
+        $table->string('gambar')->nullable();
     });
 }
 
