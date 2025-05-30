@@ -12,7 +12,7 @@
 </head>
 <body>
     <header>
-        <h1>Judul Situs</h1>
+        <h1>Jual BeliKu</h1>
         <nav>
             <!-- Menu di sini -->
         </nav>

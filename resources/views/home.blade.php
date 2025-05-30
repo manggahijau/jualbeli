@@ -1,59 +1,52 @@
-@extends('layouts.main')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JualBeliKu - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="/">JualBeliKu</a>
+        <div class="ms-auto">
+            @auth
+                <a href="/dashboard" class="btn btn-light">Dashboard</a>
+                <a href="/logout" class="btn btn-outline-light ms-2">Logout</a>
+            @else
+                <a href="/login" class="btn btn-light">Login</a>
+                <a href="/register" class="btn btn-outline-light ms-2">Register</a>
+            @endauth
+        </div>
+    </div>
+</nav>
 
-@section('title', 'Beranda')
-
-@section('content')
-    <h2>Selamat Datang di Situs Jual Beli</h2>
-    <p>Silakan login atau daftar untuk melanjutkan.</p>
-
-    <a href="{{ route('login') }}">
-        <button>Login</button>
-    </a>
-
-    <a href="{{ route('register') }}">
-        <button>Register</button>
-    </a>
-@endsection
-
-@foreach ($products as $produk)
-  <div class="produk">
-    <h3>{{ $produk->nama_produk }}</h3>
-    <p>{{ $produk->deskripsi }}</p>
-    <p>Harga: Rp{{ number_format($produk->harga, 0, ',', '.') }}</p>
-    <p>Stok: {{ $produk->stok }}</p>
-    <p>Penjual: {{ $produk->user->username }}</p>
-
-    @if($produk->gambar)
-    <img src="{{ asset('storage/' . $produk->gambar) }}" alt="Gambar Produk" width="100">
-    @endif
-
-    @if ($produk->is_grosir && $produk->diskonGrosir && $produk->diskonGrosir->count())
-    <strong>Diskon Grosir:</strong>
-    <ul>
-        @foreach ($produk->diskonGrosir->sortBy('minimal_jumlah') as $diskon)
-            <li>
-                Beli minimal {{ $diskon->minimal_jumlah }}: Diskon {{ $diskon->persentase_diskon }}% (jadi Rp{{ number_format($produk->harga * (1 - $diskon->persentase_diskon / 100), 0, ',', '.') }})
-            </li>
+<div class="container mt-5">
+    <h1 class="mb-4 text-primary">Produk Terbaru</h1>
+    <div class="row">
+        @foreach ($products as $product)
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    @if($product->gambar)
+                        <img src="{{ asset('storage/' . $product->gambar) }}" class="card-img-top" alt="{{ $product->nama_produk }}">
+                    @endif
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $product->nama_produk }}</h5>
+                        <p class="card-text">{{ $product->deskripsi }}</p>
+                        <p class="card-text fw-bold">Rp{{ number_format($product->harga, 0, ',', '.') }}</p>
+                        <form method="POST" action="{{ route('produk.beli', $product->id) }}">
+                            @csrf
+                            <div class="input-group mb-2">
+                                <input type="number" name="jumlah" class="form-control" min="1" placeholder="Jumlah">
+                                <button class="btn btn-primary" type="submit">Beli</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         @endforeach
-    </ul>
-@endif
-
-    @auth   
-    <form method="POST" action="{{ route('produk.beli', $produk->id) }}">
-      @csrf
-      <input type="number" name="jumlah" min="1" max="{{ $produk->stok }}" required>
-      <button type="submit">Beli Sekarang</button>
-    
-    </form>
-    @endauth
-
-    @guest
-    <p><em>Login dulu untuk membeli produk ini.</em></p>
-    <a href="{{ route('login') }}">
-        <button>Login untuk Beli</button>
-    </a>
-    @endguest
-  </div>
-@endforeach
-
-
+    </div>
+</div>
+</body>
+</html>
