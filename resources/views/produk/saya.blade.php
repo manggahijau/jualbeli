@@ -3,7 +3,7 @@
 @section('content')
     <h1 class="text-2xl font-bold mb-4 text-blue-700">Produk Saya</h1>
 
-    @if($produk->isEmpty())
+    @if($products->isEmpty())
         <p class="text-gray-600">Kamu belum menambahkan produk.</p>
     @else
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
