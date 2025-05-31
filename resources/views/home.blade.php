@@ -12,7 +12,7 @@
         <a class="navbar-brand" href="/">JualBeliKu</a>
         <div class="ms-auto">
             @auth
-                <a href="/produkSaya" class="btn btn-light">Produk Saya</a>
+                <a href="/produk/produkSaya" class="btn btn-light">Produk Saya</a>
                 <a href="/logout" class="btn btn-outline-light ms-2">Logout</a>
             @else
                 <a href="/login" class="btn btn-light">Login</a>
