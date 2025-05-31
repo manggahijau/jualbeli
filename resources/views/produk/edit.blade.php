@@ -1,69 +1,44 @@
-<h2>Edit Produk</h2>
+@extends('layouts.main')
 
-<form action="{{ url('/produk/' . $produk->id) }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    @method('PUT')
+@section('content')
+    <h1 class="text-2xl font-bold text-blue-700 mb-4">Edit Produk</h1>
 
-    <label>Nama Produk</label><br>
-    <input type="text" name="nama_produk" value="{{ $produk->nama_produk }}"><br><br>
+    <form action="{{ route('produk.update', $product->id) }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded shadow max-w-lg">
+        @csrf
+        @method('PUT')
 
-    <label>Deskripsi</label><br>
-    <textarea name="deskripsi">{{ $produk->deskripsi }}</textarea><br><br>
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">Nama Produk</label>
+            <input type="text" name="nama_produk" value="{{ $product->nama_produk }}" class="mt-1 w-full border rounded px-3 py-2" required>
+        </div>
 
-    <label>Harga</label><br>
-    <input type="number" step="0.01" name="harga" value="{{ $produk->harga }}"><br><br>
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">Deskripsi</label>
+            <textarea name="deskripsi" class="mt-1 w-full border rounded px-3 py-2" required>{{ $product->deskripsi }}</textarea>
+        </div>
 
-    <label>Stok</label><br>
-    <input type="number" name="stok" value="{{ $produk->stok }}"><br><br>
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">Harga</label>
+            <input type="number" name="harga" value="{{ $product->harga }}" class="mt-1 w-full border rounded px-3 py-2" required>
+        </div>
 
-    <label>Gambar Produk</label><br>
-    <input type="file" name="gambar"><br><br>
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">Stok</label>
+            <input type="number" name="stok" value="{{ $product->stok }}" class="mt-1 w-full border rounded px-3 py-2" required>
+        </div>
 
-    <label>
-        <input type="checkbox" name="is_grosir" id="is_grosir" value="1" {{ $produk->is_grosir ? 'checked' : '' }} onchange="toggleDiskonGrosir()">
-        Aktifkan Harga Grosir
-    </label>
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">Gambar Produk (opsional)</label>
+            <input type="file" name="gambar" class="mt-1 w-full border rounded px-3 py-2">
+        </div>
 
-    <div id="diskonGrosirContainer" style="{{ $produk->is_grosir ? '' : 'display:none;' }}">
-        <h4>Diskon Grosir</h4>
-        <table id="diskonTable">
-            <thead>
-                <tr>
-                    <th>Minimal Jumlah</th>
-                    <th>Diskon (%)</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($produk->diskonGrosir as $diskon)
-                    <tr>
-                        <td><input type="number" name="diskon_grosir[minimal_jumlah][]" value="{{ $diskon->minimal_jumlah }}" required></td>
-                        <td><input type="number" name="diskon_grosir[persentase_diskon][]" value="{{ $diskon->persentase_diskon }}" required></td>
-                        <td><button type="button" onclick="this.closest('tr').remove()">Hapus</button></td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-        <button type="button" onclick="tambahBarisDiskon()">+ Tambah Diskon</button>
-    </div>
+        <div class="mb-4">
+            <label class="inline-flex items-center">
+                <input type="checkbox" name="is_grosir" {{ $product->is_grosir ? 'checked' : '' }} class="mr-2">
+                Produk ini memiliki diskon grosir
+            </label>
+        </div>
 
-    <br><button type="submit">Update Produk</button>
-</form>
-
-<script>
-    function toggleDiskonGrosir() {
-        const isGrosir = document.getElementById('is_grosir').checked;
-        document.getElementById('diskonGrosirContainer').style.display = isGrosir ? 'block' : 'none';
-    }
-
-    function tambahBarisDiskon() {
-        const tbody = document.querySelector("#diskonTable tbody");
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td><input type="number" name="diskon_grosir[minimal_jumlah][]" required></td>
-            <td><input type="number" name="diskon_grosir[persentase_diskon][]" required></td>
-            <td><button type="button" onclick="this.closest('tr').remove()">Hapus</button></td>
-        `;
-        tbody.appendChild(row);
-    }
-</script>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Update Produk</button>
+    </form>
+@endsection

@@ -1,63 +1,43 @@
-<h2>Tambah Produk</h2>
+@extends('layouts.main')
 
-<form action="{{ url('/produk') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <label>Nama Produk</label><br>
-    <input type="text" name="nama_produk"><br><br>
+@section('content')
+    <h1 class="text-2xl font-bold text-blue-700 mb-4">Tambah Produk Baru</h1>
 
-    <label>Deskripsi</label><br>
-    <textarea name="deskripsi"></textarea><br><br>
+    <form action="{{ route('produk.store') }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded shadow max-w-lg">
+        @csrf
 
-    <label>Harga</label><br>
-    <input type="number" step="0.01" name="harga"><br><br>
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">Nama Produk</label>
+            <input type="text" name="nama_produk" class="mt-1 w-full border rounded px-3 py-2" required>
+        </div>
 
-    <label>Stok</label><br>
-    <input type="number" name="stok"><br><br>
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">Deskripsi</label>
+            <textarea name="deskripsi" class="mt-1 w-full border rounded px-3 py-2" required></textarea>
+        </div>
 
-    <label>Gambar Produk</label><br>
-    <input type="file" name="gambar"><br><br>
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">Harga</label>
+            <input type="number" name="harga" class="mt-1 w-full border rounded px-3 py-2" required>
+        </div>
 
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">Stok</label>
+            <input type="number" name="stok" class="mt-1 w-full border rounded px-3 py-2" required>
+        </div>
 
-<div>
-    <label for="is_grosir">Aktifkan Grosir:</label>
-    <input type="checkbox" id="is_grosir" name="is_grosir" value="1" onchange="toggleDiskonGrosir()">
-</div>
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">Gambar Produk</label>
+            <input type="file" name="gambar" class="mt-1 w-full border rounded px-3 py-2">
+        </div>
 
-<div id="diskonGrosirContainer" style="display:none;">
-    <h4>Diskon Grosir</h4>
-    <table id="diskonTable">
-        <thead>
-            <tr>
-                <th>Minimal Jumlah</th>
-                <th>Diskon (%)</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-    <button type="button" onclick="tambahBarisDiskon()">+ Tambah Diskon</button>
-</div>
+        <div class="mb-4">
+            <label class="inline-flex items-center">
+                <input type="checkbox" name="is_grosir" class="mr-2">
+                Produk ini memiliki diskon grosir
+            </label>
+        </div>
 
-
-
-    <button type="submit">Tambahkan</button>
-</form>
-
-<script>
-    function toggleDiskonGrosir() {
-        const checkbox = document.getElementById('is_grosir');
-        document.getElementById('diskonGrosirContainer').style.display = checkbox.checked ? 'block' : 'none';
-    }
-
-    function tambahBarisDiskon() {
-        const tbody = document.querySelector("#diskonTable tbody");
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td><input type="number" name="diskon_grosir[minimal_jumlah][]" min="1" required></td>
-            <td><input type="number" name="diskon_grosir[persentase_diskon][]" min="1" max="100" required></td>
-            <td><button type="button" onclick="this.closest('tr').remove()">Hapus</button></td>
-        `;
-        tbody.appendChild(row);
-    }
-</script>
-
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Simpan Produk</button>
+    </form>
+@endsection
