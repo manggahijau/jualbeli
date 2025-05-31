@@ -39,6 +39,7 @@ Route::get('/dashboard', function () {
 })->middleware('auth');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/produk/saya', [ProductController::class, 'saya'])->name('produk.saya');
     Route::get('/produk/saya', [ProductController::class, 'myProducts'])->name('produk.saya');
     Route::get('/produk/create', [ProductController::class, 'create'])->name('produk.create');
     Route::post('/produk', [ProductController::class, 'store'])->name('produk.store');

@@ -78,7 +78,7 @@ public function destroy($id)
 public function myProducts()
 {
     $produk = Product::where('user_id', Auth::id())->get();
-    return view('produk.saya', compact('product'));
+    return view('produk.saya', compact('produk'));
 }
 
 public function edit($id)
