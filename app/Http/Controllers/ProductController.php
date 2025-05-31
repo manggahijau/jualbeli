@@ -66,11 +66,6 @@ public function store(Request $request)
 }
 
 
-
-
-
-
-
 public function destroy($id)
 {
     $produk = Product::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
@@ -83,17 +78,19 @@ public function destroy($id)
 public function myProducts()
 {
     $produk = Product::where('user_id', Auth::id())->get();
-    return view('produk.saya', compact('produk'));
+    return view('produk.saya', compact('product'));
 }
 
 public function edit($id)
 {
     $produk = Product::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
-    return view('produk.edit', compact('produk'));
+    return view('produk.edit', compact('produk')); // setelah return, kode di bawah tidak akan jalan
+
+    // Kode berikut tidak akan pernah dieksekusi
     $produk->is_grosir = $request->has('is_grosir');
     $produk->save();
-
 }
+
 
 public function update(Request $request, $id)
 {
