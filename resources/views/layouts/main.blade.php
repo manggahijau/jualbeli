@@ -51,7 +51,7 @@
         </div>
         <div class="nav-links">
             <a href="{{ url('/') }}">Home</a>
-            <a href="{{ url('/dashboard') }}">Dashboard</a>
+            <a href="{{ url('/dashboard') }}">Produk Saya</a>
             <a href="{{ route('logout') }}">Logout</a>
         </div>
     </nav>

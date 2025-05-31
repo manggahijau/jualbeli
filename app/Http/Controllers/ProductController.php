@@ -62,7 +62,7 @@ public function store(Request $request)
 }
 
 
-    return redirect()->route('produk.saya')->with('success', 'Produk berhasil ditambahkan.');
+    return redirect()->route('produk.produkSaya')->with('success', 'Produk berhasil ditambahkan.');
 }
 
 
@@ -71,14 +71,14 @@ public function destroy($id)
     $produk = Product::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
     $produk->delete();
 
-    return redirect()->route('produk.saya')->with('success', 'Produk berhasil dihapus.');
+    return redirect()->route('produk.produkSaya')->with('success', 'Produk berhasil dihapus.');
 }
 
 
 public function myProducts()
 {
     $produk = Product::where('user_id', Auth::id())->get();
-    return view('produk.saya', compact('produk'));
+    return view('produk.produkSaya', compact('produk'));
 }
 
 public function edit($id)
@@ -126,7 +126,7 @@ public function update(Request $request, $id)
     }
 }
 
-    return redirect()->route('produk.saya')->with('success', 'Produk berhasil diperbarui');
+    return redirect()->route('produk.produkSaya')->with('success', 'Produk berhasil diperbarui');
 }
 
 

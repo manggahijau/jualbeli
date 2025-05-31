@@ -12,7 +12,7 @@
         <a class="navbar-brand" href="/">JualBeliKu</a>
         <div class="ms-auto">
             @auth
-                <a href="/dashboard" class="btn btn-light">Dashboard</a>
+                <a href="/produkSaya" class="btn btn-light">Produk Saya</a>
                 <a href="/logout" class="btn btn-outline-light ms-2">Logout</a>
             @else
                 <a href="/login" class="btn btn-light">Login</a>
@@ -29,7 +29,7 @@
             <div class="col-md-4 mb-4">
                 <div class="card h-100">
                     @if($product->gambar)
-                        <img src="{{ asset('storage/' . $product->gambar) }}" class="card-img-top" alt="{{ $product->nama_produk }}">
+                        <img src="{{ asset('storage/' . $product->gambar) }}" alt="Gambar Produk" class="w-full h-40 md:h-48 lg:h-56 object-cover object-cover rounded-lg mb-3 shadow-sm">
                     @endif
                     <div class="card-body">
                         <h5 class="card-title">{{ $product->nama_produk }}</h5>
