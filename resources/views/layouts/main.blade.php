@@ -1,29 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>@yield('title', 'Halaman Utama')</title>
-    <!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JualBeliKu</title>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <script src="{{ asset('js/bootstrap.js') }}" defer></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f7f9fc;
+        }
 
-<!-- Bootstrap Bundle JS (includes Popper) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        nav {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
+        nav a {
+            color: white;
+            margin-left: 1rem;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            padding: 2rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: #e9ecef;
+            margin-top: 2rem;
+            color: #6c757d;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Jual BeliKu</h1>
-        <nav>
-            <!-- Menu di sini -->
-        </nav>
-    </header>
+    <nav>
+        <div class="brand">
+            <strong>JualBeliKu</strong>
+        </div>
+        <div class="nav-links">
+            <a href="{{ url('/') }}">Home</a>
+            <a href="{{ url('/dashboard') }}">Dashboard</a>
+            <a href="{{ route('logout') }}">Logout</a>
+        </div>
+    </nav>
 
-    <main>
+    <div class="container">
         @yield('content')
-    </main>
+    </div>
 
     <footer>
-        <p>&copy; 2025 - Situsku</p>
+        &copy; {{ date('Y') }} JualBeliKu. All rights reserved.
     </footer>
 </body>
 </html>
