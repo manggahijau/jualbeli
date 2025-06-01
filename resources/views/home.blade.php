@@ -29,7 +29,7 @@
             <div class="col-md-4 mb-4">
                 <div class="card h-100">
                     @if($product->gambar)
-                        <img src="{{ asset('storage/' . $product->gambar) }}" alt="Gambar Produk" class="w-full h-40 md:h-48 lg:h-56 object-cover object-cover rounded-lg mb-3 shadow-sm">
+                        <img src="{{ asset('storage/' . $product->gambar) }}" alt="Gambar Produk" class="w-full h-40 md:h-48 lg:h-56 object-cover rounded-lg mb-3 shadow-sm">
                     @endif
                     <div class="card-body">
                         <h5 class="card-title">{{ $product->nama_produk }}</h5>

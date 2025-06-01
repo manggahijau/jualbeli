@@ -6,6 +6,7 @@
     <title>JualBeliKu</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/bootstrap.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -61,7 +62,7 @@
     </div>
 
     <footer>
-        &copy; {{ date('Y') }} JualBeliKu. All rights reserved.
+        &copy; {{ date('Y') }} JualBeliKu.
     </footer>
 </body>
 </html>
