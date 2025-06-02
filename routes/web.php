@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
     $products = \App\Models\Product::all();
@@ -27,6 +28,7 @@ Route::post('/logout', function () {
 // Route::get('/dashboard', [ProductController::class, 'myProducts'])->middleware('auth')->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
     Route::get('/produk/produkSaya', [ProductController::class, 'myProducts'])->name('produk.produkSaya');
     Route::get('/produk/create', [ProductController::class, 'create'])->name('produk.create');
     Route::post('/produk', [ProductController::class, 'store'])->name('produk.store');

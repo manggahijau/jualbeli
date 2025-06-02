@@ -18,6 +18,8 @@ class AuthController extends Controller
             'username' => 'required|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
+        ], [
+            'password.min' => 'password minimal 6 karakter'
         ]);
 
         User::create([

@@ -53,7 +53,13 @@
         <div class="nav-links">
             <a href="{{ url('/') }}">Home</a>
             <a href="{{ url('/produk/produkSaya') }}">Produk Saya</a>
-            <a href="{{ route('logout') }}">Logout</a>
+            @auth
+                <span style="margin-left: 1rem;">Halo, {{ Auth::user()->username }}</span>
+                <a href="{{ route('logout') }}" style="margin-left: 1rem;">Logout</a>
+            @else
+                <a href="{{ route('login') }}" style="margin-left: 1rem;">Login</a>
+                <a href="{{ route('register') }}" style="margin-left: 1rem;">Register</a>
+            @endauth
         </div>
     </nav>
 

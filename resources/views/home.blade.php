@@ -12,6 +12,7 @@
         <a class="navbar-brand" href="/">JualBeliKu</a>
         <div class="ms-auto">
             @auth
+                <span class="text-white me-3">Halo, {{ Auth::user()->username }}</span>
                 <a href="/produk/produkSaya" class="btn btn-light">Produk Saya</a>
                 <a href="/logout" class="btn btn-outline-light ms-2">Logout</a>
             @else
