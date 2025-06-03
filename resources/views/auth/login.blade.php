@@ -29,6 +29,9 @@
                         <button type="submit" class="btn btn-primary w-100">Login</button>
                         <p class="mt-3 text-center">Belum punya akun? <a href="/register">Daftar di sini</a></p>
                     </form>
+                    <div class="text-center mt-3">
+                        <a href="/" class="btn btn-secondary">Kembali</a>
+                    </div>
                 </div>
             </div>
         </div>

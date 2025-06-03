@@ -12,8 +12,10 @@ class ProductController extends Controller
 {
     public function create()
 {
-    return view('produk.create');
+    $produk = Product::latest()->take(6)->get(); // Atau query lain yang sesuai
+    return view('produk.create', compact('produk'));
 }
+
 
 public function store(Request $request)
 {

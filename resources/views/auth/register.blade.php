@@ -33,6 +33,9 @@
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Daftar</button>
                         <p class="mt-3 text-center">Sudah punya akun? <a href="/login">Login di sini</a></p>
+                        <div class="text-center mt-3">
+                            <a href="/" class="btn btn-secondary">Kembali</a>
+                        </div>
                     </form>
                 </div>
             </div>

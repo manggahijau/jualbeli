@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
+use App\Models\Product;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('home', ['user' => Auth::user()]);
+        $produk = Product::latest()->get(); // Ambil semua produk
+        return view('home', compact('produk')); // Kirim ke view
     }
 }
