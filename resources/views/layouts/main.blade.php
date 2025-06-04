@@ -53,7 +53,7 @@
 
         <h2 class="mb-4 text-primary">Produk Terbaru</h2>
         <div class="row">
-            @forelse ($products as $product)
+            @forelse ($produk as $product)
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
                         @if($product->gambar)
@@ -93,5 +93,13 @@
             <p class="text-muted mb-0">&copy; {{ date('Y') }} JualBeliKu. Semua hak cipta dilindungi.</p>
         </div>
     </footer>
+</body>
+</html></footer>
+</body>
+</html>
+</footer>
+</body>
+</html>
+</footer>
 </body>
 </html>
