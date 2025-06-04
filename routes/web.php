@@ -34,6 +34,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/produk/{id}', [ProductController::class, 'update'])->name('produk.update');
     Route::delete('/produk/{id}', [ProductController::class, 'destroy'])->name('produk.destroy');
     
+    // Route untuk topup saldo
+    Route::get('/topup', [AuthController::class, 'showTopup'])->name('topup.form');
+    Route::post('/topup', [AuthController::class, 'topup'])->name('topup.store');
+
     // Route untuk pembelian
     Route::post('/produk/{id}/beli', [TransactionController::class, 'store'])->name('produk.beli');
     

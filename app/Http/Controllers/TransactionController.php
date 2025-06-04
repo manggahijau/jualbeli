@@ -13,6 +13,7 @@ class TransactionController extends Controller
 {
    $product = Product::with('diskonGrosir')->findOrFail($id);
     $jumlah = $request->input('jumlah');
+    $user = Auth::user();
     $harga = $product->harga;
     $diskon = 0;
 
@@ -29,6 +30,16 @@ class TransactionController extends Controller
     }
 
     $totalHarga = $harga * $jumlah * ((100 - $diskon) / 100);
+    if ($user->saldo < $totalHarga) {
+        return redirect()->back()->with('error', 'Saldo tidak cukup untuk melakukan pembelian.');
+    }
+
+    $user->saldo -= $totalHarga;
+    $user->save();
+
+    $penjual = $product->user;
+    $penjual->saldo += $totalHarga;
+    $penjual->save();
     // Buat transaksi
     Transaction::create([
         'user_id' => Auth::id(),

@@ -57,4 +57,20 @@ class AuthController extends Controller
         // Redirect ke halaman main setelah logout
         return redirect('/');
     }
+
+    public function showTopup() {
+        return view('auth.topup');
+    }
+
+    public function topup(Request $request) {
+        $request->validate([
+            'jumlah' => 'required|numeric|min:1000',
+        ]);
+
+        $user = Auth::user();
+        $user->saldo += $request->jumlah;
+        $user->save();
+
+        return redirect()->route('topup.form')->with('success', 'Topup saldo berhasil!');
+    }
 }

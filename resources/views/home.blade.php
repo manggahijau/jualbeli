@@ -12,7 +12,8 @@
         <a class="navbar-brand" href="/home">JualBeliKu</a>
         <div class="ms-auto">
             @auth
-                <span class="text-white me-3">Halo, {{ Auth::user()->username }}</span>
+                <span class="text-white me-3">Halo, {{ Auth::user()->username }} | Saldo: Rp{{ number_format(Auth::user()->saldo, 0, ',', '.') }}</span>
+                <a href="{{ route('topup.form') }}" class="btn btn-warning me-2">Top-Up Saldo</a>
                 <a href="/produk/produkSaya" class="btn btn-light">Produk Saya</a>
                 <form method="POST" action="{{ route('logout') }}" class="d-inline">
                     @csrf
