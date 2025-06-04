@@ -25,7 +25,7 @@ public function store(Request $request)
         'deskripsi' => 'nullable',
         'harga' => 'required|numeric',
         'stok' => 'required|integer',
-        'is_grosir' => 'nullable|boolean', // Validasi untuk checkbox is_grosir
+        'is_grosir' => 'nullable', // Validasi untuk checkbox is_grosir
         'minimal_jumlah' => 'nullable|integer|min:1',
         'persentase_diskon' => 'nullable|numeric|min:1|max:100',
     ]);

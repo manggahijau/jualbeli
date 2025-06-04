@@ -65,6 +65,18 @@
                         <h5 class="card-title">{{ $product->nama_produk }}</h5>
                         <p class="card-text flex-grow-1">{{ $product->deskripsi }}</p>
                         <p class="card-text fw-bold text-success fs-5">Rp{{ number_format($product->harga, 0, ',', '.') }}</p>
+                        @if($product->is_grosir)
+                    <div class="text-sm text-green-700">
+                        <strong>Diskon Grosir:</strong>
+                        <ul class="list-disc list-inside">
+                            @foreach($product->diskonGrosir as $diskon)
+                                <li>Minimal {{ $diskon->minimal_jumlah }} pcs - {{ $diskon->persentase_diskon }}%</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                        @endif
+                        <p class="card-text text-muted">Stok: {{ $product->stok }}</p>
+                    </div>
                         
                         @auth
                             @if($product->user_id != Auth::id())
