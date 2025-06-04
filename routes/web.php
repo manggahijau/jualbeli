@@ -11,8 +11,8 @@ use App\Http\Controllers\HomeController;
 
 // Route untuk halaman main (user belum login) - menampilkan produk tanpa bisa beli
 Route::get('/', function () {
-    $products = \App\Models\Product::all();
-    return view('layouts/main', compact('products'));
+    $produk = \App\Models\Product::all();
+    return view('layouts.main', compact('produk'));
 })->name('layouts/main');
 
 // Routes untuk authentication
