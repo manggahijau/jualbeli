@@ -40,7 +40,7 @@ class TransactionController extends Controller
     // Kurangi stok produk
     $product->decrement('stok', $request->jumlah);
 
-    return redirect('/dashboard')->with('success', 'Pembelian berhasil! Produk akan segera dikirim… mungkin.');
+    return redirect('/home')->with('success', 'Pembelian berhasil! Produk akan segera dikirim… mungkin.');
 }
 
 }
