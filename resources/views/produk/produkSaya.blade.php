@@ -1,29 +1,56 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="container mx-auto py-8">
-    <h1 class="text-2xl font-bold mb-6 text-blue-700">Produk Saya</h1>
+<div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+    <h1 class="text-3xl font-bold text-blue-700 mb-6">📦 Produk Saya</h1>
+
+    {{-- @if(session('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+            {{ session('success') }}
+        </div>
+    @endif --}}
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {{-- Produk List --}}
+        {{-- Daftar Produk --}}
         @foreach($produk as $product)
-            <div class="bg-white rounded-lg shadow p-4 flex flex-col justify-between">
+            <div class="bg-white shadow-md rounded-xl overflow-hidden flex flex-col justify-between hover:shadow-lg transition">
                 <div>
                     @if($product->gambar)
-                        <img src="{{ asset('storage/' . $product->gambar) }}" alt="Gambar Produk" class="w-full h-40 object-cover rounded mb-3 border">
+                        <img src="{{ asset('storage/' . $product->gambar) }}"
+                             alt="Gambar Produk"
+                             class="w-full h-40 object-cover border-b">
+                    @else
+                        <div class="w-full h-40 bg-gray-200 flex items-center justify-center text-gray-500">
+                            Tidak Ada Gambar
+                        </div>
                     @endif
-                    <h2 class="font-bold text-black text-md">{{ $product->nama_produk }}</h2>
-                    <p class="text-sm text-gray-600">{{ $product->deskripsi }}</p>
-                    <p class="text-sm text-black mt-1">Rp{{ number_format($product->harga, 0, ',', '.') }}</p>
+
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold text-gray-800 truncate">{{ $product->nama_produk }}</h2>
+                        <p class="text-sm text-gray-500 mb-1">{{ $product->deskripsi }}</p>
+                        <p class="text-md font-bold text-blue-600 mb-1">Rp{{ number_format($product->harga, 0, ',', '.') }}</p>
+                        <p class="text-sm text-gray-700">Stok: {{ $product->stok }}</p>
+
+                        {{-- Badge Diskon Grosir --}}
+                        @if($product->is_grosir)
+                            <span class="inline-block mt-2 px-2 py-1 text-xs bg-green-100 text-green-700 font-semibold rounded">
+                                Diskon Grosir Tersedia
+                            </span>
+                        @endif
+                    </div>
                 </div>
-                <div class="mt-3 flex justify-between gap-2">
-                    <a href="{{ route('produk.edit', $product->id) }}" class="flex-1 text-center border border-blue-500 text-blue-600 font-semibold py-1 rounded hover:bg-blue-100">
+
+                <div class="px-4 pb-4 mt-auto flex justify-between gap-2">
+                    <a href="{{ route('produk.edit', $product->id) }}"
+                       class="flex-1 text-center text-sm bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-1 rounded">
                         Edit
                     </a>
-                    <form action="{{ route('produk.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk ini?')" class="flex-1">
+                    <form action="{{ route('produk.destroy', $product->id) }}" method="POST"
+                          onsubmit="return confirm('Yakin ingin menghapus produk ini?')" class="flex-1">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="w-full text-white bg-red-600 hover:bg-red-700 font-semibold py-1 rounded">
+                        <button type="submit"
+                                class="w-full text-sm bg-red-500 hover:bg-red-600 text-white font-semibold py-1 rounded">
                             Hapus
                         </button>
                     </form>
@@ -32,12 +59,13 @@
         @endforeach
 
         {{-- Kartu Tambah Produk --}}
-        <form action="{{ route('produk.create') }}" method="GET" class="flex items-center justify-center">
-            <button type="submit" class="w-full h-full flex flex-col items-center justify-center bg-white rounded-lg shadow border-2 border-dashed border-gray-300 hover:border-blue-400 p-4 text-center">
-                <div class="text-4xl text-black mb-2">+</div>
-                <p class="text-green-600 font-semibold">Tambah Produk</p>
-            </button>
-        </form>
+        <a href="{{ route('produk.create') }}"
+           class="flex items-center justify-center bg-white rounded-xl shadow-md hover:shadow-lg transition border-2 border-dashed border-gray-300 p-4 text-center">
+            <div class="flex flex-col items-center">
+                <div class="text-5xl text-gray-600 mb-2">+</div>
+                <p class="text-blue-600 font-semibold">Tambah Produk</p>
+            </div>
+        </a>
     </div>
 </div>
 @endsection

@@ -25,8 +25,13 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::middleware('auth')->group(function () {
     // Route untuk halaman home (user sudah login) - bisa beli produk
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+    // Route untuk kategori
+    Route::get('/kategori/{slug}', [App\Http\Controllers\KategoriController::class, 'show'])->name('kategori.show');
+    Route::get('/kategori', [App\Http\Controllers\KategoriController::class, 'index'])->name('kategori.index');
     
     // Routes untuk produk
+    Route::get('/produk/produk', [ProductController::class, 'allProduct'])->name('produk.produk');
     Route::get('/produk/produkSaya', [ProductController::class, 'myProducts'])->name('produk.produkSaya');
     Route::get('/produk/create', [ProductController::class, 'create'])->name('produk.create');
     Route::post('/produk', [ProductController::class, 'store'])->name('produk.store');

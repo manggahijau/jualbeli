@@ -1,32 +1,80 @@
 @extends('layouts.main')
 
 @section('content')
-    <h1 class="text-2xl font-bold text-blue-700 mb-6">Top-Up Saldo</h1>
+    <body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Topup Saldo</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Tampilkan saldo saat ini -->
+                        <div class="alert alert-info">
+                            <strong>Saldo Saat Ini: </strong>
+                            Rp {{ number_format(Auth::user()->saldo, 0, ',', '.') }}
+                        </div>
 
-    @if(session('success'))
-        <div class="bg-green-100 text-green-700 p-4 rounded mb-4">
-            {{ session('success') }}
+                        <!-- Pesan sukses -->
+                        @if(session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+                        <!-- Pesan error -->
+                        @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+
+                        <!-- Form topup -->
+                        <form action="{{ route('topup.store') }}" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="jumlah" class="form-label">Jumlah Topup</label>
+                                <input type="number" 
+                                       class="form-control @error('jumlah') is-invalid @enderror" 
+                                       id="jumlah" 
+                                       name="jumlah" 
+                                       placeholder="Masukkan jumlah minimal Rp 1.000"
+                                       min="1000"
+                                       value="{{ old('jumlah') }}">
+                                @error('jumlah')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <!-- Quick amount buttons -->
+                            <div class="mb-3">
+                                <label class="form-label">Pilihan Cepat:</label>
+                                <div class="btn-group d-flex" role="group">
+                                    <button type="button" class="btn btn-outline-primary" onclick="setAmount(10000)">10K</button>
+                                    <button type="button" class="btn btn-outline-primary" onclick="setAmount(25000)">25K</button>
+                                    <button type="button" class="btn btn-outline-primary" onclick="setAmount(50000)">50K</button>
+                                    <button type="button" class="btn btn-outline-primary" onclick="setAmount(100000)">100K</button>
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">Topup Sekarang</button>
+                                <a href="{{ route('home') }}" class="btn btn-outline-secondary">Kembali ke Home</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-    @endif
+    </div>
 
-    @if($errors->any())
-        <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
-            <ul class="list-disc pl-5">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    <form action="{{ route('topup.store') }}" method="POST" class="max-w-md bg-white p-6 rounded shadow">
-        @csrf
-        <label class="block mb-2 font-semibold text-gray-700">Jumlah Top-Up (minimal 1000)</label>
-        <input type="number" name="jumlah" step="0.01" min="1000" required
-               class="w-full border rounded px-3 py-2 mb-4" value="{{ old('jumlah') }}">
-
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-            Tambah Saldo
-        </button>
-    </form>
+    <script>
+        function setAmount(amount) {
+            document.getElementById('jumlah').value = amount;
+        }
+    </script>
+</body>
 @endsection
