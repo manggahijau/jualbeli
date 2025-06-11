@@ -13,5 +13,5 @@ Fitur Yang Perlu Ditambahkan :
 
 1. Fitur login logout (done)
 2. Fitur Transaksi
-3. Fitur Diskon
-4. Fitur sorting
+3. Fitur Diskon (done)
+4. Fitur sorting (done)
