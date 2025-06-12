@@ -6,7 +6,7 @@
         <div class="col-md-6">
             <div class="card shadow">
                 <div class="card-body">
-                    <h3 class="text-center text-primary mb-4">Daftar - JualBeliKu</h3>
+                    <h3 class="text-center text-primary mb-4">Daftar - NigaStore</h3>
                     <form method="POST" action="/register">
                         @csrf
                         <div class="mb-3">

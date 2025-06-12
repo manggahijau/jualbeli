@@ -6,7 +6,7 @@
         <div class="col-md-6">
             <div class="card shadow">
                 <div class="card-body">
-                    <h3 class="text-center text-primary mb-4">Login - JualBeliKu</h3>
+                    <h3 class="text-center text-primary mb-4">Login - NigaStore</h3>
                     @if ($errors->any())
                         <div class="alert alert-danger">{{ $errors->first() }}</div>
                     @endif
