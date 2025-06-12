@@ -39,7 +39,7 @@
             <div class="bg-gradient-to-r from-green-600 to-green-700 rounded-xl shadow-xl p-8 mb-8 text-white">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h1 class="text-3xl font-bold mb-2">Selamat Datang di JualBeliKu!</h1>
+                        <h1 class="text-3xl font-bold mb-2">Selamat Datang di NigaStore!</h1>
                         <p class="text-green-100 text-lg">Temukan produk terbaik dan mulai berjualan sekarang juga</p>
                     </div>
                     <div class="hidden md:block">
@@ -269,4 +269,5 @@
         @endforelse
     </div>
 </div>
+<br>
 @endsection

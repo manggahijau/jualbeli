@@ -169,40 +169,67 @@ public function edit($id)
 
 public function update(Request $request, $id)
 {
-    $produk = Product::findOrFail($id);
-    $produk->nama_produk = $request->nama_produk;
-    $produk->deskripsi = $request->deskripsi;
-    $produk->harga = $request->harga;
-    $produk->kategori = $request->kategori;
-    $produk->status = $request->status;
-    $produk->stok = $request->stok;
-    $produk->is_grosir = $request->has('is_grosir') ? 1 : 0;
-    $produk->save();
+    $validated = $request->validate([
+        'nama_produk' => 'required',
+        'deskripsi' => 'nullable',
+        'harga' => 'required|numeric',
+        'stok' => 'required|integer',
+        'kategori' => 'required|string',
+        'status' => 'required|in:Tersedia,Tidak Tersedia',
+        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'is_grosir' => 'nullable',
+        'diskon_grosir.minimal_jumlah.*' => 'nullable|integer|min:1',
+        'diskon_grosir.persentase_diskon.*' => 'nullable|numeric|min:1|max:100',
+    ]);
 
-    if ($request->hasFile('gambar')) {
-    $gambar = $request->file('gambar')->store('gambar_produk', 'public');
-    $produk->gambar = $gambar;
-}
-    $produk->user_id = Auth::id();
-    $produk->save();
+    try {
+        DB::beginTransaction();
 
-    $produk->diskonGrosir()->delete();
+        $produk = Product::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
 
-   if ($request->has('is_grosir') && $request->filled('diskon_grosir.minimal_jumlah')) {
-    foreach ($request->diskon_grosir['minimal_jumlah'] as $index => $min_jumlah) {
-        $persen = $request->diskon_grosir['persentase_diskon'][$index];
+        // Update fields
+        $produk->nama_produk = $validated['nama_produk'];
+        $produk->deskripsi = $validated['deskripsi'];
+        $produk->harga = $validated['harga'];
+        $produk->kategori = $validated['kategori'];
+        $produk->status = $validated['status'];
+        $produk->stok = $validated['stok'];
+        $produk->is_grosir = $request->has('is_grosir') ? 1 : 0;
 
-        if ($min_jumlah && $persen) {
-            DiskonGrosir::create([
-                'product_id' => $produk->id,
-                'minimal_jumlah' => $min_jumlah,
-                'persentase_diskon' => $persen,
-            ]);
+        // Handle gambar update
+        if ($request->hasFile('gambar')) {
+            // Delete old image if exists
+            if ($produk->gambar && Storage::disk('public')->exists($produk->gambar)) {
+                Storage::disk('public')->delete($produk->gambar);
+            }
+            $produk->gambar = $request->file('gambar')->store('gambar_produk', 'public');
         }
-    }
-}
 
-    return redirect()->route('produk.produkSaya')->with('success', 'Produk berhasil diperbarui');
+        $produk->save();
+
+        // Update diskon grosir
+        $produk->diskonGrosir()->delete();
+
+        if ($request->has('is_grosir') && $request->filled('diskon_grosir.minimal_jumlah')) {
+            foreach ($request->diskon_grosir['minimal_jumlah'] as $index => $min_jumlah) {
+                $persen = $request->diskon_grosir['persentase_diskon'][$index] ?? null;
+                if ($min_jumlah && $persen) {
+                    DiskonGrosir::create([
+                        'product_id' => $produk->id,
+                        'minimal_jumlah' => $min_jumlah,
+                        'persentase_diskon' => $persen,
+                    ]);
+                }
+            }
+        }
+
+        DB::commit();
+
+        return redirect()->route('produk.produkSaya')->with('success', 'Produk berhasil diperbarui');
+    } catch (\Exception $e) {
+        DB::rollback();
+        return redirect()->back()->withInput()->with('error', 'Gagal memperbarui produk: ' . $e->getMessage());
+    }
 }
 
 

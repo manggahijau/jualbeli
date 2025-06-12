@@ -157,11 +157,13 @@
                         <div class="text-sm text-gray-600">
                             <label for="gambar" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
                                 <span>Upload gambar produk</span>
-                                <input id="gambar" name="gambar" type="file" class="sr-only" accept="image/*">
+                                <input id="gambar" name="gambar" type="file" accept="image/*" class="sr-only">
                             </label>
                             <p class="pl-1">atau drag and drop</p>
                         </div>
                         <p class="text-xs text-gray-500 mt-2">PNG, JPG, GIF up to 10MB</p>
+                        <!-- Image preview will be shown here -->
+                        <div id="imagePreview" class="mt-4"></div>
                     </div>
                 </div>
 
@@ -299,7 +301,7 @@
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function(ev) {
                 // Create or update preview
                 let preview = document.getElementById('imagePreview');
                 if (!preview) {
@@ -311,7 +313,7 @@
                 
                 preview.innerHTML = `
                     <div class="relative inline-block">
-                        <img src="${e.target.result}" class="h-32 w-32 object-cover rounded-lg shadow-md">
+                        <img src="${ev.target.result}" class="h-32 w-32 object-cover rounded-lg shadow-md">
                         <button type="button" onclick="clearImagePreview()" 
                                 class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600">
                             ×
@@ -320,6 +322,8 @@
                 `;
             };
             reader.readAsDataURL(file);
+        } else {
+            document.getElementById('imagePreview').innerHTML = '';
         }
     });
 

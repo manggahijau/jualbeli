@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" data-bs-theme="light">
+<html lang="id" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,46 +9,59 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <style>
+        html, body {
+            color-scheme: dark;
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #232946 0%, #1a1a2e 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            color: #e5e7eb;
         }
 
         .main-content {
             flex: 1;
-            background-color: #f8fafc;
+            background-color: #181824;
             margin-top: 0;
             padding-top: 2rem;
         }
 
         /* Navbar Styles */
-        .navbar-custom {
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        .navbar-custom, .bg-white {
+            background: linear-gradient(135deg, #232946 0%, #1a1a2e 100%) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .navbar-brand {
+        .navbar-brand, .text-gray-900 {
             font-weight: 700;
             font-size: 1.5rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            color: #fff !important;
         }
 
-        .navbar-nav .nav-link {
+        .navbar-nav .nav-link, .text-gray-600 {
             font-weight: 500;
             padding: 0.5rem 1rem;
             margin: 0 0.25rem;
             border-radius: 8px;
             transition: all 0.3s ease;
+            color: #bfc9d1 !important;
         }
 
-        .navbar-nav .nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+        .navbar-nav .nav-link:hover, .hover\:text-blue-600:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #38bdf8 !important;
             transform: translateY(-1px);
+        }
+
+        .text-blue-600 {
+            color: #38bdf8 !important;
+        }
+        .border-blue-600 {
+            border-color: #38bdf8 !important;
         }
 
         .btn-navbar {
@@ -60,26 +73,26 @@
         }
 
         .btn-navbar-primary {
-            background-color: white;
-            color: #4f46e5;
-            border-color: white;
+            background-color: #232946;
+            color: #38bdf8;
+            border-color: #38bdf8;
         }
 
         .btn-navbar-primary:hover {
-            background-color: #f3f4f6;
+            background-color: #1a1a2e;
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15);
         }
 
         .btn-navbar-outline {
             background-color: transparent;
-            color: white;
-            border-color: white;
+            color: #38bdf8;
+            border-color: #38bdf8;
         }
 
         .btn-navbar-outline:hover {
-            background-color: white;
-            color: #4f46e5;
+            background-color: #38bdf8;
+            color: #232946;
             transform: translateY(-1px);
         }
 
@@ -99,8 +112,8 @@
 
         /* Footer Styles */
         .footer-custom {
-            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
-            color: white;
+            background: linear-gradient(135deg, #181824 0%, #232946 100%);
+            color: #e5e7eb;
             margin-top: auto;
             padding: 3rem 0 2rem 0;
             position: relative;
@@ -114,7 +127,7 @@
             left: 0;
             right: 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
         }
 
         .footer-content {
@@ -129,7 +142,7 @@
         }
 
         .footer-text {
-            color: #d1d5db;
+            color: #bfc9d1;
             margin-bottom: 0;
             font-size: 0.9rem;
         }
@@ -141,14 +154,14 @@
         }
 
         .footer-links a {
-            color: #d1d5db;
+            color: #bfc9d1;
             text-decoration: none;
             font-size: 0.9rem;
             transition: color 0.3s ease;
         }
 
         .footer-links a:hover {
-            color: white;
+            color: #fff;
         }
 
         .social-links {
@@ -163,15 +176,16 @@
             justify-content: center;
             width: 40px;
             height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
+            background-color: rgba(56, 189, 248, 0.08);
+            color: #38bdf8;
             border-radius: 50%;
             text-decoration: none;
             transition: all 0.3s ease;
         }
 
         .social-links a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(56, 189, 248, 0.2);
+            color: #fff;
             transform: translateY(-2px);
         }
 
@@ -183,25 +197,30 @@
             max-width: 400px;
             z-index: 9999;
             border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             animation: slideInRight 0.3s ease-out;
         }
 
         .notification.success {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
+            background: linear-gradient(135deg, #059669 0%, #065f46 100%);
+            color: #e5e7eb;
         }
 
         .notification.error {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            color: white;
+            background: linear-gradient(135deg, #b91c1c 0%, #7f1d1d 100%);
+            color: #e5e7eb;
         }
 
         .notification.warning {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: white;
+            background: linear-gradient(135deg, #b45309 0%, #78350f 100%);
+            color: #e5e7eb;
+        }
+
+        .notification.info {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            color: #e5e7eb;
         }
 
         .notification-content {
@@ -270,7 +289,7 @@
             .navbar-nav {
                 margin-top: 1rem;
                 padding-top: 1rem;
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
             }
             
             .navbar-nav .nav-item {
@@ -300,7 +319,7 @@
 <body>
     <!-- Navigation -->
     <!-- Modern Navbar -->  
-    <nav class="bg-white shadow-lg border-b border-gray-200">
+    <nav class="navbar-custom shadow-lg border-b border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <!-- Logo & Brand -->
@@ -317,8 +336,6 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden md:flex items-center space-x-8">
-                    
-
                     @auth
                         <a href="/produk/produk"
                         class="{{ request()->is('produk/produk') ? 'text-blue-600 font-semibold border-b-2 border-blue-600 pb-1' : 'text-gray-600 hover:text-blue-600 transition-colors duration-200' }}">
@@ -430,7 +447,7 @@
                         </div>
                     </div>
                 </div>
-                <hr class="my-4" style="border-color: rgba(255, 255, 255, 0.1);">
+                <hr class="my-4" style="border-color: rgba(255, 255, 255, 0.08);">
                 <div class="text-center">
                     <p class="footer-text">
                         &copy; {{ date('Y') }} Nigastore.
